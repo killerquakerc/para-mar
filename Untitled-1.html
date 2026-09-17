@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para ti</title>
+<style>
+*{box-sizing:border-box}
+body {margin:0;min-height:100vh;display:grid;place-items:center;background:url("https://wallpapers.com/images/hd/corpse-bride-theme-fanmade-art-kx8vlf3xyvydg5tm.jpg") 70% center/100% 100% no-repeat fixed;.pantalla{display:none;width:min(90%,550px);max-height:90vh;overflow-y:auto;padding:30px 20px;text-align:center;background:rgba(99, 99, 99, 0.966);border-radius:25px;animation:aparecer .4s ease}
+.pantalla.activa{display:block}
+@keyframes aparecer{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+h1{margin:0 0 15px;font-size:clamp(28px,8vw,40px)}
+p{line-height:1.6;font-size:17px}
+button{border:0;border-radius:15px;cursor:pointer;transition:.2s}
+button:active{transform:scale(.95)}
+.botones,.botonesFinal{display:flex;justify-content:center;gap:15px}
+.botonInicio{padding:10px;background:#000000}
+.botonesFinal .botonInicio{background:#ffffff}
+.botonInicio img{display:block;width:clamp(80px,25vw,120px);aspect-ratio:1;object-fit:cover;border-radius:10px}
+.botonInicio span{display:block;margin-top:8px;font-size:18px;font-weight:bold;color:#fffdfd}
+.continuar{margin-top:25px;padding:14px 25px;background:#fff;font-size:16px;font-weight:bold}
+.atras{display:block;margin:15px auto 0;padding:9px 16px;background:#ffffff;color:#000000}
+#mensajeNo{display:none;margin-top:25px;align-items:center;justify-content:center;gap:12px}
+#mensajeNo p{margin:0;color:rgb(2, 2, 2);font-size:24px;font-weight:bold}
+#mensajeNo img{width:70px;height:70px;object-fit:cover;border-radius:10px}
+.lista{display:grid;gap:12px;margin-top:25px}
+.card{padding:17px;background:#fffffff6;border-radius:15px;cursor:pointer}
+.card h3{margin:0}
+.card p{display:none;margin:12px 0 0}
+.card.abierta p{display:block}
+.historia .card{text-align:left}
+.galeria{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:25px}
+.galeria img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:15px;cursor:pointer}
+#mensajeFoto{display:none;margin-top:15px;padding:15px;background:#ffffff;border-radius:15px}
+.secreto,.pregunta{margin-top:25px;padding:25px;background:#ffffff1a;border-radius:20px}
+#contenidoSecreto,#textoCarta{display:none;animation:aparecer .5s ease}
+.imagenPersonal{display:block;width:min(100%,320px);margin:20px auto 0;border-radius:15px;object-fit:cover}
+.respuesta{display:block;width:100%;margin-top:10px;padding:14px;background:#fff;font-size:16px}
+#resultadoQuiz{margin-top:20px;font-weight:bold}
+.contador{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}
+.tiempo{padding:18px;background:#ffffff;border-radius:15px}
+.numero{display:block;font-size:28px;font-weight:bold}
+.unidad{font-size:14px;opacity:.8}
+.carta{margin-top:25px;padding:25px;background:#fffffff2;color:#000000;border-radius:12px;text-align:left}
+.carta p{font-size:17px}
+.respuestaFinal{display:none;margin-top:25px}
+.atrasFinal{margin-top:15px}
+</style>
+</head>
+<body>
+
+<main class="pantalla activa" id="inicio">
+<h1 id="tituloInicio">¿Me quieres?</h1>
+<div class="botones">
+<button class="botonInicio" onclick="siguiente('inicio','motivos')"><img src="si.jpg" alt="Sí"><span>Sí</span></button>
+<button class="botonInicio" id="botonNo" onclick="decirNo()"><img id="imagenNo" src="no.jpg" alt="No"><span id="textoNo">No</span></button>
+</div>
+<div id="mensajeNo"><p>¿En serio?</p><img src="en serio.jpg" alt="¿En serio?"></div>
+</main>
+
+<main class="pantalla" id="motivos">
+<h1>¿Por qué me gustas?</h1>
+<p>Pulsa en cada una para descubrirlo.</p>
+<div class="lista">
+<div class="card" onclick="abrirCard(this)"><h3>Tu forma de ser</h3><p>Eres tan amorosa, tan abierta tan buena conmigo, es verdad que a veces eres timida pero eso te hace mona.</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Cómo me haces sentir</h3><p>Cuando estoy a tu lado siento que nada puede conmigo, me desaparecen los males, los pensamientos malos de cuando sobrepienso</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Nuestros momentos</h3><p>Recuerdo en el parque maria cristina cuando nos besamos, para mi fue magico, no solo el beso sino cuando nos mirabamos tan deseosos del uno del otro, estabamos embobados y eso me mata</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>El principio de todo</h3><p>Fue algo raro porque nos conocimos por wizz jsjsjs pero esa charla que tuvimos esa noche, tu no estabas bien emocionalmente pero aun asi conseguiste que conecte un chip mio contigo, fue increible</p></div>
+</div>
+<button class="continuar" onclick="siguiente('motivos','historia')">Continuar</button>
+<button class="atras" onclick="siguiente('motivos','inicio')">Atrás</button>
+</main>
+
+<main class="pantalla" id="historia">
+<h1>Nuestra historia</h1>
+<p>Todo lo que hemos vivido hasta llegar aquí.</p>
+<div class="lista historia">
+<div class="card" onclick="abrirCard(this)"><h3>El principio</h3><p>Como dije antes fue algo raro, no esperaba encontrar el amor en esa aplicacion jasksj</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Nuestra primera conversación</h3><p>Nuestra primera conversacion real fue esa misma noche el 30 de julio por la madrugada ahi me senti interesado en ti ya que nunca conoci a alguien tan filosofica como tu</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Cuando empezó a cambiar todo</h3><p>Realmente cuando me empezaste a gustar de verdad no se cuando fue, supongo que fue con el tiempo, nunca me paso eso siempre fui de amor a primera vista y tal vez por eso las relaciones me duran poco o son inexistentes</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Cuando empezamos a estar juntos</h3><p>Todavia no somos nada peero nos tratamos diferente mas o menos desde el dia de mi cumpleaños jsjs ese dia siento que nos abrimos de mas, y eso esta genial</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Un momento que nunca olvidaré</h3><p>Mi recuerdo favorito de todos fue el finde que viniste, para mi fue magico y ahi fue cuando me estaba enamorando de verdad</p></div>
+</div>
+<button class="continuar" onclick="siguiente('historia','recuerdos')">Continuar</button>
+<button class="atras" onclick="siguiente('historia','motivos')">Atrás</button>
+</main>
+
+<main class="pantalla" id="recuerdos">
+<h1>Nuestros recuerdos</h1>
+<p>Pulsa en las fotos.</p>
+<div class="galeria">
+<img src="foto 1.jpg" onclick="mostrarFoto('Esta fue nuetra primera llamada, tenia muchas mariposas en el estomago pero me lo pase genial c:')" alt="foto 1.jpg">
+<img src="foto 2.jpg" onclick="mostrarFoto('Esta si no me equivoco fue que me robaste el movil y te hiciste una foto sales tan cute jksjaks :3')" alt="foto 2.jpg">
+<img src="foto 3.jpg" onclick="mostrarFoto('Nuestra primera foto juntos despues del primer beso, bueno la primera foto juntos realmente asjasjkask')" alt="foto 3.jpg">
+<img src="foto 4.jpg" onclick="mostrarFoto('En el dominos aunque no salimos los dos fue el mejor dia de todos ya que fue cuando mas nos conocimos y mas confianza tuvimos, fue inolvidable')" alt="foto 4.jpg">
+</div>
+<div id="mensajeFoto"></div>
+<button class="continuar" onclick="siguiente('recuerdos','adoro')">Continuar</button>
+<button class="atras" onclick="siguiente('recuerdos','historia')">Atrás</button>
+</main>
+
+<main class="pantalla" id="adoro">
+<h1>Cosas que adoro de ti</h1>
+<p>Pulsa cada tarjeta.</p>
+<div class="lista">
+<div class="card" onclick="abrirCard(this)"><h3>Tu forma de hacerme reír</h3><p>No tienes que hacer nada, solo con ser tú me lo paso genial, me haces reir cuando coqueteamos por los nervios jsjsj</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Cómo me tratas</h3><p>Me encanta que cuando estoy mal eres la persona que mas se ha preocupado por mi en mi vida, me demuestras tanto cariño que solo con eso me ganas jskajask</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Tus pequeños detalles</h3><p>Un te quiero para ti puede ser tan cotidiano que seria casi insignificante pero cuando me lo dijiste por primera vez senti que me derretia por dentro, fue especial, todavia sigo sin acostumbrarme a ellos jsjsj</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Lo cómodo que me haces sentir</h3><p>Cuando estamos con tus amigos no me dejas de lado, me tratas igual de importante que los otros aunque no hable, si no hablo te procupas por mi y cada pequeño detalle de esos me enamoran más aun</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Simplemente tú</h3><p>Ni si quiera necesito una razon para quererte, te quiero porque eres tu</p></div>
+</div>
+<button class="continuar" onclick="siguiente('adoro','secreto')">Hay algo más...</button>
+<button class="atras" onclick="siguiente('adoro','recuerdos')">Atrás</button>
+</main>
+
+<main class="pantalla" id="secreto">
+<h1>Hay algo que todavía no has descubierto...</h1>
+<div class="secreto">
+<p>No abras esto</p>
+<button class="continuar" onclick="abrirSecreto()">Abrir</button>
+<div id="contenidoSecreto">
+<h2>te dije que no lo abrieras :(</h2>
+<p>Lo abriste por curiosa, bueno quiero decirte que te amo con mi alma, eres perfecta para mi ojos y probablemente para muchos de ellos
+</p>
+<img class="imagenPersonal" src="pusheen doble.jpg" alt="Imagen especial">
+</div>
+</div>
+<button class="continuar" onclick="siguiente('secreto','quiz')">Continuar</button>
+<button class="atras" onclick="siguiente('secreto','adoro')">Atrás</button>
+</main>
+
+<main class="pantalla" id="quiz">
+<h1>Adivina adivinanza...</h1>
+<p>A ver si te diste cuenta</p>
+<div class="pregunta">
+<h3>Cual crees que fue el momento en el que me enamore realmente de ti?</h3>
+<button class="respuesta" onclick="respuestaQuiz(false)">A) cuando nos conocimos</button>
+<button class="respuesta" onclick="respuestaQuiz(true)">B) En el parque maria cristina</button>
+<button class="respuesta" onclick="respuestaQuiz(false)">C) En tu casa</button>
+</div>
+<div id="resultadoQuiz"></div>
+<button class="continuar" onclick="siguiente('quiz','futuro')">Continuar</button>
+<button class="atras" onclick="siguiente('quiz','secreto')">Atrás</button>
+</main>
+
+<main class="pantalla" id="futuro">
+<h1>Lo que quiero vivir contigo</h1>
+<p>A nuesta historia aun le queda tiempo para que se acabe de escribir</p>
+<div class="lista">
+<div class="card" onclick="abrirCard(this)"><h3>Ver un atardecer juntos</h3><p>Se lo especial y bonito que es ver el atardecer, ese cielo anaranjado/rosado, mas especial aun seria al lado de alguien a quien amo</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Una noche de películas</h3><p>Una noche tu y yo solos tapados con manta viendo pelis</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Ir a comer juntos</h3><p>Todavia tenemos que ir a un sushi los dos solos y ver quien come mas de los dos jsjsjs</p></div>
+<div class="card" onclick="abrirCard(this)"><h3>Pasar la noche dormidos juntos</h3><p>Me fliparia algun dia poder verte la cara antes de dormir y verla nada mas amanecer, ver a mi musa al dormir y al despertar</p></div>
+</div>
+<button class="continuar" onclick="siguiente('futuro','contador')">Continuar</button>
+<button class="atras" onclick="siguiente('futuro','quiz')">Atrás</button>
+</main>
+
+<main class="pantalla" id="contador">
+<h1>Y desde ese 30 de julio</h1>
+<p>Cada segundo contigo cuenta.</p>
+<div class="contador">
+<div class="tiempo"><span class="numero" id="dias">0</span><span class="unidad">días</span></div>
+<div class="tiempo"><span class="numero" id="horas">0</span><span class="unidad">horas</span></div>
+<div class="tiempo"><span class="numero" id="minutos">0</span><span class="unidad">minutos</span></div>
+<div class="tiempo"><span class="numero" id="segundos">0</span><span class="unidad">segundos</span></div>
+</div>
+<button class="continuar" onclick="siguiente('contador','carta')">Antes de terminar...</button>
+<button class="atras" onclick="siguiente('contador','futuro')">Atrás</button>
+</main>
+
+<main class="pantalla" id="carta">
+<h1>Antes de terminar...</h1>
+<p>He guardado una cosita para ti.</p>
+<button class="continuar" onclick="abrirCarta()">Abrir sorpresa</button>
+<div class="carta" id="textoCarta">
+<p>Querida Mar:</p>
+<p>Hace casi un mes y medio que nos conocemos pero has conseguido hacerme sentir algo que nadie consiguio, el amor de verdad</p>
+<p>Eres la unica en serio que ha conseguido que me sienta querido y que no sea mentira, que me tenga en cuenta para todo, la que me ha querido sin importar mis defectos y estar a tu lado me hace la persona mas feliz del mundo te amo mi zelda ailobiu</p>
+<p>Gracias por estar ahi para mi todos los dias, por soportar mis gilipolleces cuando me pongo celoso, sabes que te amo</p>
+<p>Espero y le pido a la luna que lo nuestro no se agote y nos amemos y queramos las partes malas del otro tanto como le queremos a el</p>
+<p>Te amo mi princesa</p>
+<img class="imagenPersonal" src="pusheen tumbado.jpg" alt="Imagen para la carta">
+</div>
+<button class="continuar" onclick="siguiente('carta','final')">Y ahora sí...</button>
+<button class="atras" onclick="siguiente('carta','contador')">Atrás</button>
+</main>
+
+<main class="pantalla" id="final">
+<h1>Una última pregunta</h1>
+<p>Después de todo esto</p>
+<h2>Me volverías a elegir?</h2>
+<img class="imagenPersonal" src="puchaina triste.jpg" alt="Imagen final">
+<div class="botonesFinal">
+<button class="botonFinal" onclick="finalSi()">Sí</button>
+<button class="botonInicio" onclick="finalNo()">No</button>
+</div>
+<div class="respuestaFinal" id="respuestaFinal">
+<h2 id="tituloFinal">Yo te eligiria todas mis vidas</h2>
+<p id="textoFinal">Una y otra vez.</p>
+<button class="continuar" onclick="volverAlPrincipio()">Volver al principio</button>
+</div>
+<button class="atras" onclick="siguiente('final','carta')">Atrás</button>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+function siguiente(actual,proxima){$(actual).classList.remove("activa");$(proxima).classList.add("activa");scrollTo(0,0)}
+function decirNo(){const b=$("botonNo");if(b.dataset.convertido==="true")return siguiente("inicio","motivos");$("textoNo").textContent="Sí";$("imagenNo").src="si.jpg";$("mensajeNo").style.display="flex";b.dataset.convertido="true"}
+function abrirCard(card){card.parentElement.querySelectorAll(".card").forEach(c=>c!==card&&c.classList.remove("abierta"));card.classList.toggle("abierta")}
+function mostrarFoto(texto){$("mensajeFoto").textContent=texto;$("mensajeFoto").style.display="block"}
+function abrirSecreto(){$("contenidoSecreto").style.display="block"}
+function respuestaQuiz(correcta){$("resultadoQuiz").textContent=correcta?"Muy bien amor c:":"casi mi niña"}
+const fechaInicio=new Date("2026-07-30T00:00:00");
+function actualizarContador(){const total=Math.max(0,Math.floor((Date.now()-fechaInicio)/1000));$("dias").textContent=Math.floor(total/86400);$("horas").textContent=Math.floor(total%86400/3600);$("minutos").textContent=Math.floor(total%3600/60);$("segundos").textContent=total%60}
+actualizarContador();setInterval(actualizarContador,1000);
+function abrirCarta(){$("textoCarta").style.display="block"}
+function finalSi(){$("respuestaFinal").style.display="block";$("tituloFinal").textContent="Entonces volvería a empezar todo desde el principio contigo.";$("textoFinal").textContent="Una y otra vez."}
+function finalNo(){$("respuestaFinal").style.display="block";$("tituloFinal").textContent="Mientes";$("textoFinal").textContent="Vuelve a intentarlo."}
+function volverAlPrincipio(){document.querySelector(".pantalla.activa").classList.remove("activa");$("inicio").classList.add("activa");$("tituloInicio").textContent="¿Me quieres otra vez?";$("botonNo").dataset.convertido="false";$("textoNo").textContent="No";$("imagenNo").src="no.jpg";$("mensajeNo").style.display="none";scrollTo(0,0)}
+</script>
+</body>
+</html>
